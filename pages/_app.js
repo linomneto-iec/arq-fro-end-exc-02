@@ -1,7 +1,14 @@
 import '../styles/globals.scss'
+import App from 'next/app';
+import Layout from '../components/layout'
 
-const App = ({ Component, pageProps }) => {
-  return <Component {...pageProps} />
+export default class MyApp extends App {
+  render() {
+    const { Component, pageProps } = this.props
+    return (
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    )
+  }
 }
-
-export default App
