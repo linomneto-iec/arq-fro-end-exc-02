@@ -1,30 +1,33 @@
-import Head from 'next/head'
-import { listCharacters } from '../services'
+import Image from 'next/image'
+import listCharacters from '../services'
 
-const Home = ({ data }) => {
+export default function Home({ characters }) {
   return (
     <>
-      <Head>
-        <title>Marvel</title>
-      </Head>
-      <div>
-        <h1>Hello World</h1>
-      </div>
+      {console.log(characters.length)}
+      {characters.map((char) => {
+        return (
+          <div class=''>
+            <div class=''>
+              <span>Nome: {char.name}</span>
+            </div>
+            <div class=''>
+              <img
+                src={char.thumbnail.path + '.' + char.thumbnail.extension}
+                alt={char.name}
+                width={200}
+                height={200}
+              />
+            </div>
+          </div>
+        )
+      })}
     </>
   )
 }
 
-
 export async function getServerSideProps() {
-  const apiUrl = 'https://gateway.marvel.com'
-  const publicKey = '1200a69eba6e9bfbcaddb0b408053acc'
-  const res = await fetch('https://gateway.marvel.com/v1/public/characters&apikey=' + publicKey, {
-    method: 'get',
-  });
-  const data = await res.json()
-  console.log(data)
-
-  return { props: { data } }
+  const res = await listCharacters()
+  console.log(res.data.results)
+  return { props: { characters: res.data.results } }
 }
-
-export default Home
