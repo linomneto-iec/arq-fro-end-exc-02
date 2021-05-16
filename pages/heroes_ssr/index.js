@@ -1,4 +1,4 @@
-import listCharacters from '../../services'
+import { listCharacters } from '../../services'
 
 export default function Home({ characters }) {
   return (

@@ -16,4 +16,10 @@ const listCharacters = async () => {
     return data
 }
 
-export default listCharacters
+const listCharactersNotAsync = () => {
+    return fetch(`${apiUrl}/v1/public/characters?ts=1&apikey=${publicKey}&hash=${hash}`, {
+        method: 'get',
+    }).then(res => res.json())
+}
+
+export { listCharacters, listCharactersNotAsync }
